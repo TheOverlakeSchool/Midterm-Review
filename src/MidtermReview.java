@@ -34,7 +34,13 @@ public class MidtermReview {
      * factorial(-4);	IllegalArgumentException
      */
     public static int factorial(int n) {
-        return 0;
+        if (n < 0) {
+            throw new IllegalArgumentException();
+        } else if (n == 0) {
+            return 1;
+        } else {
+            return n * factorial(n-1);
+        }
     }
 
     public static class LinkedIntListMR extends LinkedIntList {
@@ -49,6 +55,11 @@ public class MidtermReview {
          * [1, 1, 8, 8, 19, 19, 4, 4, 17, 17]
          */
         public void stutter() {
+            ListNode current = front;
+            while (current != null) {
+                current.next = new ListNode(current.data,current.next);
+                current = current.next.next;
+            }
 
         }
     }
@@ -60,7 +71,21 @@ public class MidtermReview {
          * Precondition: elements of a are in sorted order
          */
         public int binarySearchR(int n) {
-            return 0;
+            return binarySearchR(n, 0, size() - 1);
+        }
+
+        public int binarySearchR(int n, int min, int max) {
+            if (min > max) {
+                return -(min + 1);
+            }
+            int mid = (min + max) / 2;
+            if (nums[mid] > n) {
+                binarySearchR(n, min, mid - 1);
+            } else if(nums[mid] < n) {
+                binarySearchR(n, mid + 1, max);
+            } else {
+                return mid;
+            }
         }
 
     }
